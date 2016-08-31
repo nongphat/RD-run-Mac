@@ -21,7 +21,7 @@ public class MyAlert {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss(); //เมื่อกด OK ให้ dialog หายไป
+                dialog.dismiss(); //เมื่อกด   OK ให้ dialog หายไป
             }
         });
         builder.show();
