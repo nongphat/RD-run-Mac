@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 } else {
                     //Password False
+
                     MyAlert myAlert = new MyAlert();
                     myAlert.myDialog(context,R.drawable.bird48,"รหัสผ่านไม่ถูกต้อง",
                             "กรุณาใส่รหัสผ่านใหม่");
