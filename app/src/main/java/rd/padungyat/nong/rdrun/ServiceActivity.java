@@ -28,7 +28,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     private ImageView imageView;
     private TextView nameTextView,surnameTextView;
     private int[] avataInts;
-    private double userLatADouble = 65.9667, userLngADouble = -18.5333; //Connect
+    private double userLatADouble = 13.806061 , userLngADouble = 100.574505; //Connect
     private LocationManager locationManager; //Service ในการค้นหาพิกัด
     private Criteria criteria; //เงื่อนไขการค้นหา ระบุแกน
 
