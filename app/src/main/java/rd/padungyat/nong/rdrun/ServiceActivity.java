@@ -17,13 +17,15 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
 
     //Explicit
     private GoogleMap mMap;
-    private String idString ,avataString ,nameString, surnameString;
+    private String idString,avataString,nameString,surnameString;
     private ImageView imageView;
-    private TextView nameTextView, surnameTextView;
+    private TextView nameTextView,surnameTextView;
     private int[] avataInts;
+    private double userLatADouble = 13.806100, userLngADouble = 100.574488; //Connect
 
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_service);
@@ -60,14 +62,13 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     }//Main Method
 
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //การ setup center of map
+        LatLng latLng = new LatLng(userLatADouble,userLngADouble);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,16));
+
     }//Method Map
 }//Main Class
