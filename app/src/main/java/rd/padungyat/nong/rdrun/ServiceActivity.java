@@ -19,6 +19,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
 
 public class ServiceActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -31,6 +40,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
     private double userLatADouble = 13.806061 , userLngADouble = 100.574505; //Connect
     private LocationManager locationManager; //Service ในการค้นหาพิกัด
     private Criteria criteria; //เงื่อนไขการค้นหา ระบุแกน
+    private static final String urlPHp ="http://swiftcodingthai.com/rd/edit_location_nongphat.php"
 
 
     @Override
@@ -176,6 +186,10 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         Log.d("1SepV2", "Lat ==>" + userLatADouble);
         Log.d("1SepV2", "Lng ==>" + userLngADouble);
 
+        //โยนค่า
+        editLatLngOnServer();
+
+
         //Post Delay  การทำให้เกิดการหน่วงเวลาขึ้น
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -186,4 +200,34 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
         },1000);
 
     }//myLoop
+
+    private void editLatLngOnServer() {
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        //ชุดแพคเกจ
+        RequestBody requestBody = new FormEncodingBuilder()
+                .add("isAdd", "true")
+                .add("id", idString)
+                .add("Lat", Double.toString(userLatADouble))
+                .add("Lng", Double.toString(userLngADouble))
+                .build();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.url(urlPHp).post(requestBody).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+                Log.d("2SepV1", "e ==>" + e.toString());
+
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+
+                Log.d("2SepV1", "Result ==>" + response.body().string());
+
+            }
+        });
+    }//editLatLng
 }//Main Class
